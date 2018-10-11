@@ -5,12 +5,14 @@
 
 #include "queue.h"
 
+#define CAPACITY 10
+
 int main() {
 	// Create the threads
 	pthread_t reader_t;
 
 	// Create the queues
-	Queue queue;
+	Queue *queue = createStringQueue(CAPACITY);
 
 	// Start the threads
 
