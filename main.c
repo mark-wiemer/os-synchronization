@@ -20,10 +20,13 @@ int main() {
 
 	// Wait for the threads to terminate
 
-	if (DEBUG) printf("Capacity: %d, First: %d, Last: %d\n",
-					queue->capacity,
-					queue->first,
-					queue->last);
+	if (DEBUG) {
+		printf("Capacity: %d, First: %d, Last: %d\n",
+			queue->capacity,
+			queue->first,
+			queue->last);
+	}
 
 	return 0;
 }
+
