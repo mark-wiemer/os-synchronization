@@ -9,7 +9,9 @@ SPACES = "+%s/\s\+$$//" "+w" # remove right-trailing whitespace
 QUIT = "+q!"
 FILES = main.c \
 	main.h \
-	partner.txt
+	partner.txt \
+	queue.c \
+	queue.h
 MARK_INFO = Mark Wiemer mww 9074356420
 JENNY_INFO = Jenny Ye haengjung 9075878315
 
@@ -19,11 +21,14 @@ NORMAL = \e[0m
 LIGHT_GREEN = \e[92m
 LIGHT_RED = \e[91m
 
-all: main.o
-	$(CC) -o $(EXE) main.o
+all: main.o queue.o
+	$(CC) -o $(EXE) main.o queue.o
 
-main.o: main.c
+main.o: main.c queue.h
 	$(CC) $(WARNING_FLAGS) -c main.c
+
+queue.o: queue.c queue.h
+	$(CC) $(WARNING_FLAGS) -c queue.c
 
 clean:
 	rm $(EXE) *.o

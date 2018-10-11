@@ -3,11 +3,14 @@
 
 #include <pthread.h>
 
+#include "queue.h"
+
 int main() {
 	// Create the threads
 	pthread_t reader_t;
 
 	// Create the queues
+	Queue queue;
 
 	// Start the threads
 
