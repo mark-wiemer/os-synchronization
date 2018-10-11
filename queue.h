@@ -5,6 +5,8 @@
 #define QUEUE_H
 typedef struct Queue {
 	char **elements;
+	int first;
+	int last;
 } Queue;
 Queue *createStringQueue(int capacity);
 #endif
