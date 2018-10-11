@@ -5,6 +5,7 @@
 #define QUEUE_H
 typedef struct Queue {
 	char **elements;
+	int capacity;
 	int first;
 	int last;
 } Queue;
