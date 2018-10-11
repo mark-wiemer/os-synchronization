@@ -7,6 +7,7 @@ EXE = prodcomm
 LINE = "+w ++ff=unix" # convert line endings
 SPACES = "+%s/\s\+$$//" "+w" # remove right-trailing whitespace
 QUIT = "+q!"
+SCAN_BUILD_DIR = scan-build-out
 FILES = main.c \
 	main.h \
 	partner.txt \
@@ -31,7 +32,11 @@ queue.o: queue.c queue.h
 	$(CC) $(WARNING_FLAGS) -c queue.c
 
 clean:
-	rm $(EXE) *.o
+	rm -f $(EXE) *.o
+	rm -rf $(SCAN_BUILD_DIR)
+
+scan-build: clean
+	scan-build -o $(SCAN_BUILD_DIR) make
 
 # convert line endings
 unix:
