@@ -4,6 +4,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 typedef struct Queue {
+	pthread_mutex_t mutex;
 	char **elements;
 	int capacity;
 	int first;
