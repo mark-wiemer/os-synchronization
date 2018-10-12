@@ -12,7 +12,9 @@ FILES = main.c \
 	main.h \
 	partner.txt \
 	queue.c \
-	queue.h
+	queue.h \
+	reader.c \
+	reader.h
 MARK_INFO = Mark Wiemer mww 9074356420
 JENNY_INFO = Jenny Ye haengjung 9075878315
 
