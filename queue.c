@@ -18,3 +18,10 @@ Queue * createStringQueue(int capacity) {
 
 	return queue;
 }
+
+void enqueueString(Queue *queue, char *string) {
+	pthread_mutex_lock(&(queue->mutex));
+
+	pthread_mutex_unlock(&(queue->mutex));
+	return;
+}

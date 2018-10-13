@@ -11,4 +11,5 @@ typedef struct Queue {
 	int last;
 } Queue;
 Queue *createStringQueue(int capacity);
+void enqueueString(Queue *queue, char *string);
 #endif

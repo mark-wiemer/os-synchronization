@@ -15,6 +15,7 @@ int main() {
 
 	// Create the queues
 	Queue *queue = createStringQueue(CAPACITY);
+	enqueueString(queue, "Hello, world!");
 
 	// Start the threads
 
