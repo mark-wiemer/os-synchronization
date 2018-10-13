@@ -7,23 +7,23 @@
 #include "queue.h"
 
 Queue * createStringQueue(int capacity) {
-	Queue* queue;
+	Queue* q;
 
-	queue = (Queue*) malloc(sizeof(Queue));
-	pthread_mutex_init(&(queue->mutex), NULL); // initialize with default values
-	pthread_cond_init(&(queue->empty), NULL); // TODO error handling?
-	pthread_cond_init(&(queue->full), NULL); // TODO error handling?
-	queue->elements = (char**) malloc(capacity * sizeof(char*));
-	queue->capacity = capacity;
-	queue->first = 0;
-	queue->last = 0;
+	q = (Queue*) malloc(sizeof(Queue));
+	pthread_mutex_init(&(q->mutex), NULL); // initialize with default values
+	pthread_cond_init(&(q->empty), NULL); // TODO error handling?
+	pthread_cond_init(&(q->full), NULL); // TODO error handling?
+	q->elements = (char**) malloc(capacity * sizeof(char*));
+	q->capacity = capacity;
+	q->first = 0;
+	q->last = 0;
 
-	return queue;
+	return q;
 }
 
-void enqueueString(Queue *queue, char *string) {
-	pthread_mutex_lock(&(queue->mutex));
+void enqueueString(Queue *q, char *string) {
+	pthread_mutex_lock(&(q->mutex));
 
-	pthread_mutex_unlock(&(queue->mutex));
+	pthread_mutex_unlock(&(q->mutex));
 	return;
 }

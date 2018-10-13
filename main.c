@@ -14,8 +14,8 @@ int main() {
 	pthread_t reader_t;
 
 	// Create the queues
-	Queue *queue = createStringQueue(CAPACITY);
-	enqueueString(queue, "Hello, world!");
+	Queue *q = createStringQueue(CAPACITY);
+	enqueueString(q, "Hello, world!");
 
 	// Start the threads
 
@@ -23,9 +23,9 @@ int main() {
 
 	if (DEBUG) {
 		printf("Capacity: %d, First: %d, Last: %d\n",
-			queue->capacity,
-			queue->first,
-			queue->last);
+			q->capacity,
+			q->first,
+			q->last);
 	}
 
 	return 0;
