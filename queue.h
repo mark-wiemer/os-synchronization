@@ -5,6 +5,8 @@
 #define QUEUE_H
 typedef struct Queue {
 	pthread_mutex_t mutex;
+	pthread_cond_t empty;
+	pthread_cond_t full;
 	char **elements;
 	int capacity;
 	int first;

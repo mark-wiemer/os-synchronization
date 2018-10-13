@@ -11,6 +11,8 @@ Queue * createStringQueue(int capacity) {
 
 	queue = (Queue*) malloc(sizeof(Queue));
 	pthread_mutex_init(&(queue->mutex), NULL); // initialize with default values
+	pthread_cond_init(&(queue->empty), NULL); // TODO error handling?
+	pthread_cond_init(&(queue->full), NULL); // TODO error handling?
 	queue->elements = (char**) malloc(capacity * sizeof(char*));
 	queue->capacity = capacity;
 	queue->first = 0;
