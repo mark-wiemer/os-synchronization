@@ -27,10 +27,10 @@ LIGHT_RED = \e[91m
 all: main.o queue.o
 	$(CC) -o $(EXE) main.o queue.o
 
-main.o: main.c queue.h
+main.o: main.c main.h queue.h
 	$(CC) $(WARNING_FLAGS) -c main.c
 
-queue.o: queue.c queue.h
+queue.o: queue.c main.h queue.h
 	$(CC) $(WARNING_FLAGS) -c queue.c
 
 clean:

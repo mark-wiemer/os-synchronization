@@ -14,5 +14,6 @@ typedef struct Queue {
 } Queue;
 Queue *createStringQueue(int capacity);
 void enqueueString(Queue *queue, char *string);
+char* dequeueString(Queue *queue);
 int modIncrement(Queue *q, int index);
 #endif

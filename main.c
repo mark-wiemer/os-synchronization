@@ -3,11 +3,17 @@
 
 #include <pthread.h>
 #include <stdio.h>
+#include <string.h>
 
+#include "main.h"
 #include "queue.h"
 
+#define BUFFSIZE 255
 #define CAPACITY 10
 #define DEBUG 1
+
+/** global getter */
+int buffsize() { return BUFFSIZE; }
 
 /** Prints a fail message and returns count + 1 */
 int fail(char *msg, int actual, int expected, int count) {
@@ -42,11 +48,14 @@ int main() {
 	int error = test();
 
 	// Create the threads
-	pthread_t reader_t;
+	// pthread_t reader_t;
 
 	// Create the queues
 	Queue *q = createStringQueue(CAPACITY);
 	enqueueString(q, "Hello, world!");
+	char msg[buffsize() + 1];
+
+	strcpy(msg, dequeueString(q));
 
 	// Start the threads
 
@@ -57,6 +66,7 @@ int main() {
 			q->capacity,
 			q->first,
 			q->last);
+		printf("msg: %s\n", msg);
 	}
 
 	return error;
