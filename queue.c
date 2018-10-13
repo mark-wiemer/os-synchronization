@@ -27,3 +27,7 @@ void enqueueString(Queue *q, char *string) {
 	pthread_mutex_unlock(&(q->mutex));
 	return;
 }
+
+int modIncrement(Queue *q, int index) {
+	return (index + 1) % (q->capacity);
+}
