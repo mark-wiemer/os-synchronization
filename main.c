@@ -3,9 +3,11 @@
 
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "main.h"
+#include "munch.h"
 #include "queue.h"
 #include "reader.h"
 
@@ -51,18 +53,35 @@ int main() {
 
 	// Create the threads
 	pthread_t reader_t;
+	pthread_t munch1_t;
+	pthread_t munch2_t;
 
 	// Create the queues
-	Queue *readMunch1 = createStringQueue(CAPACITY);
+	Queue *read_munch1 = createStringQueue(CAPACITY);
+	Queue *munch1_munch2 = createStringQueue(CAPACITY);
+	Queue *munch2_write = createStringQueue(CAPACITY);
+
+	MunchArgs *munch1Args = (MunchArgs*) malloc(sizeof(MunchArgs));
+	munch1Args->in = read_munch1;
+	munch1Args->out = munch1_munch2;
+
+	MunchArgs *munch2Args = (MunchArgs*) malloc(sizeof(MunchArgs));
+	munch2Args->in = munch1_munch2;
+	munch2Args->out = munch2_write;
 
 	// Start the threads
-	pthread_create(&reader_t, NULL, read, (void *)readMunch1);
+	pthread_create(&reader_t, NULL, read, (void*) read_munch1);
+	pthread_create(&munch1_t, NULL, munch1, (void*) munch1Args);
+	pthread_create(&munch2_t, NULL, munch2, (void*) munch2Args);
+
 
 	// Wait for the threads to terminate
 	pthread_join(reader_t, NULL);
+	pthread_join(munch1_t, NULL);
+	pthread_join(munch2_t, NULL);
 
-	while (readMunch1->first != readMunch1->last) { // not empty
-		strcpy(line, dequeueString(readMunch1));
+	while (read_munch1->first != read_munch1->last) { // not empty
+		strcpy(line, dequeueString(read_munch1));
 		printf("%s\n", line);
 	}
 

@@ -13,6 +13,8 @@ QUIT = "+q!"
 SCAN_BUILD_DIR = scan-build-out
 FILES = main.c \
 	main.h \
+	munch.c \
+	munch.h \
 	partner.txt \
 	queue.c \
 	queue.h \
@@ -27,11 +29,14 @@ NORMAL = \e[0m
 LIGHT_GREEN = \e[92m
 LIGHT_RED = \e[91m
 
-all: main.o queue.o reader.o
-	$(CC) -o $(EXE) main.o queue.o reader.o -lpthread
+all: main.o munch.o queue.o reader.o
+	$(CC) -o $(EXE) main.o munch.o queue.o reader.o -lpthread
 
-main.o: main.c main.h queue.h
+main.o: main.c main.h munch.h queue.h
 	$(CC) $(WARNING_FLAGS) -c main.c
+
+munch.o: munch.c munch.h queue.h
+	$(CC) $(WARNING_FLAGS) -c munch.c
 
 queue.o: queue.c main.h queue.h
 	$(CC) $(WARNING_FLAGS) -c queue.c
