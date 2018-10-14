@@ -10,8 +10,9 @@
 #include "munch.h"
 #include "queue.h"
 #include "reader.h"
+#include "writer.h"
 
-#define BUFFSIZE 8	// TODO : change back to 256
+#define BUFFSIZE 256
 #define CAPACITY 10
 #define DEBUG 1
 #define END_OF_THREAD ":)" // Some unique string to symbolize end of thread
@@ -52,12 +53,12 @@ int test() {
 
 int main() {
 	int error = test();
-	char line[BUFFSIZE];
 
 	// Create the threads
 	pthread_t reader_t;
 	pthread_t munch1_t;
 	pthread_t munch2_t;
+	pthread_t writer_t;
 
 	// Create the queues
 	Queue *read_munch1 = createStringQueue(CAPACITY);
@@ -76,17 +77,13 @@ int main() {
 	pthread_create(&reader_t, NULL, read, (void*) read_munch1);
 	pthread_create(&munch1_t, NULL, munch1, (void*) munch1Args);
 	pthread_create(&munch2_t, NULL, munch2, (void*) munch2Args);
-
+	pthread_create(&writer_t, NULL, write, (void*) munch2_write);
 
 	// Wait for the threads to terminate
 	pthread_join(reader_t, NULL);
 	pthread_join(munch1_t, NULL);
 	pthread_join(munch2_t, NULL);
-
-	while (munch2_write->first != munch2_write->last) { // not empty
-		strcpy(line, dequeueString(munch2_write));
-		printf("%s\n", line);
-	}
+	pthread_join(writer_t, NULL);
 
 	return error;
 }

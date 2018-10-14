@@ -32,7 +32,7 @@ LIGHT_GREEN = \e[92m
 LIGHT_RED = \e[91m
 
 all: main.o munch.o queue.o reader.o writer.o
-	$(CC) -o $(EXE) main.o munch.o queue.o reader.o -lpthread
+	$(CC) -o $(EXE) main.o munch.o queue.o reader.o writer.o -lpthread
 
 main.o: main.c main.h munch.h queue.h writer.h
 	$(CC) $(WARNING_FLAGS) -c main.c
