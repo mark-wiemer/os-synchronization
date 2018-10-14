@@ -83,8 +83,8 @@ int main() {
 	pthread_join(munch1_t, NULL);
 	pthread_join(munch2_t, NULL);
 
-	while (munch1_munch2->first != munch1_munch2->last) { // not empty
-		strcpy(line, dequeueString(munch1_munch2));
+	while (munch2_write->first != munch2_write->last) { // not empty
+		strcpy(line, dequeueString(munch2_write));
 		printf("%s\n", line);
 	}
 
