@@ -14,9 +14,12 @@
 #define BUFFSIZE 8	// TODO : change back to 256
 #define CAPACITY 10
 #define DEBUG 1
+#define END_OF_THREAD ":)" // Some unique string to symbolize end of thread
 
 /** global getter */
 int buffsize() { return BUFFSIZE; }
+
+char* eot() { return END_OF_THREAD; }
 
 /** Prints a fail message and returns count + 1 */
 int fail(char *msg, int actual, int expected, int count) {
@@ -80,8 +83,8 @@ int main() {
 	pthread_join(munch1_t, NULL);
 	pthread_join(munch2_t, NULL);
 
-	while (read_munch1->first != read_munch1->last) { // not empty
-		strcpy(line, dequeueString(read_munch1));
+	while (munch1_munch2->first != munch1_munch2->last) { // not empty
+		strcpy(line, dequeueString(munch1_munch2));
 		printf("%s\n", line);
 	}
 

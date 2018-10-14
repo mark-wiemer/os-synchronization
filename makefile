@@ -35,7 +35,7 @@ all: main.o munch.o queue.o reader.o
 main.o: main.c main.h munch.h queue.h
 	$(CC) $(WARNING_FLAGS) -c main.c
 
-munch.o: munch.c munch.h queue.h
+munch.o: munch.c main.h munch.h queue.h
 	$(CC) $(WARNING_FLAGS) -c munch.c
 
 queue.o: queue.c main.h queue.h

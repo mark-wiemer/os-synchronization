@@ -18,8 +18,8 @@ void* read(void* v) {
 	int lastLine = 0;
 	int c;
 	while (1) {
-		//printf("Beginning of while\n");
 		validLine = 0;
+		lastLine = 0;
 		for (int i=0 ; i < BUFFSIZE ; i++) {
 			c = getchar();
 			if (c == '\n') {
@@ -28,26 +28,37 @@ void* read(void* v) {
 				break;
 			}
 			if (c == EOF) {
+				if (i == 0) { // file ends on newline
+					strcpy(copy, eot());
+					enqueueString(queue, copy);
+					return NULL;
+				}
 				buffer[i] = '\0';
-				printf("%s", buffer);
 				validLine = 1;
 				lastLine = 1;
 				break;
 			}
 			buffer[i] = c;
-		//	printf("Current buffer: %s\n", buffer);
 		}
 		if (!validLine){
 			//read rest of line or to end of file
 			while ((c = getchar()) != '\n' && c != EOF) {
-		//		printf("Last char: %c\n", c);
+				// printf("Last char: %c\n", c);
 			}
 			// if EOF, we are done
-			if (c == EOF) {return NULL; }
+			if (c == EOF) {
+				strcpy(copy, eot());
+				enqueueString(queue, copy);
+				return NULL;
+			}
 		} else {
 			strcpy(copy, buffer);
 			enqueueString(queue, copy);
-			if (lastLine) return NULL;
+			if (lastLine) {
+				strcpy(copy, eot());
+				enqueueString(queue, copy);
+				return NULL;
+			}
 		}
 	}
 
