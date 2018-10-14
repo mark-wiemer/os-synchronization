@@ -5,6 +5,7 @@ CC = gcc
 WARNING_FLAGS = -Wall -Wextra
 EXE = prodcomm
 LINE = "+w ++ff=unix" # convert line endings
+INFILE = in.txt
 SPACES = "+%s/\s\+$$//" "+w" # remove right-trailing whitespace
 QUIT = "+q!"
 SCAN_BUILD_DIR = scan-build-out
@@ -24,14 +25,17 @@ NORMAL = \e[0m
 LIGHT_GREEN = \e[92m
 LIGHT_RED = \e[91m
 
-all: main.o queue.o
-	$(CC) -o $(EXE) main.o queue.o
+all: main.o queue.o reader.o
+	$(CC) -o $(EXE) main.o queue.o reader.o
 
 main.o: main.c main.h queue.h
 	$(CC) $(WARNING_FLAGS) -c main.c
 
 queue.o: queue.c main.h queue.h
 	$(CC) $(WARNING_FLAGS) -c queue.c
+
+reader.o: reader.c main.h
+	$(CC) $(WARNING_FLAGS) -c reader.c
 
 clean:
 	rm -f $(EXE) *.o
@@ -53,7 +57,7 @@ spaces:
 	done
 
 test:
-	$(EXE)
+	$(EXE) < $(INFILE)
 	echo -e "$(LIGHT_GREEN)SUCCESS$(NORMAL)"
 
 # add info to each file

@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "queue.h"
+#include "reader.h"
 
 #define BUFFSIZE 255
 #define CAPACITY 10
@@ -41,6 +42,7 @@ int testModIncrement() {
 int test() {
 	int error = 0;
 	error = testModIncrement();
+	read();
 	return error;
 }
 
