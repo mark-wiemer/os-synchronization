@@ -63,14 +63,6 @@ int main() {
 
 	// Wait for the threads to terminate
 
-	if (DEBUG) {
-		printf("Capacity: %d, First: %d, Last: %d\n",
-			q->capacity,
-			q->first,
-			q->last);
-		printf("msg: %s\n", msg);
-	}
-
 	return error;
 }
 

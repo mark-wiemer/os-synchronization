@@ -5,7 +5,8 @@ CC = gcc
 WARNING_FLAGS = -Wall -Wextra
 EXE = prodcomm
 LINE = "+w ++ff=unix" # convert line endings
-INFILE = in.txt
+IN_FILE = in.txt
+OUT_FILE = out.txt
 SPACES = "+%s/\s\+$$//" "+w" # remove right-trailing whitespace
 QUIT = "+q!"
 SCAN_BUILD_DIR = scan-build-out
@@ -57,7 +58,8 @@ spaces:
 	done
 
 test:
-	$(EXE) < $(INFILE)
+	$(EXE) < $(IN_FILE) > $(OUT_FILE)
+	diff $(IN_FILE) $(OUT_FILE)
 	echo -e "$(LIGHT_GREEN)SUCCESS$(NORMAL)"
 
 # add info to each file

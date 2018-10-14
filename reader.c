@@ -11,16 +11,25 @@ void read() {
 	// reading the standard input
 	char buffer[BUFFSIZE];
 	// We need the error check
-	for (int i=0 ; i < BUFFSIZE ; i++) {
-		int c = getchar();
-		if (c == '\n') {
-			buffer[i] = '\0';
-			break;
+
+	while (1) {
+		for (int i=0 ; i < BUFFSIZE ; i++) {
+			int c = getchar();
+			if (c == '\n') {
+				buffer[i] = '\0';
+				break;
+			}
+			if (c == EOF) {
+				buffer[i] = '\0';
+				printf("%s", buffer);
+				return;
+			}
+			buffer[i] = c;
 		}
-		buffer[i] = c;
+
+		printf("%s\n", buffer);
 	}
 
-	printf("Testing newline : %s\n", buffer);
 
 }
 
