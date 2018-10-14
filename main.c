@@ -42,26 +42,29 @@ int testModIncrement() {
 int test() {
 	int error = 0;
 	error = testModIncrement();
-	read();
 	return error;
 }
 
 int main() {
 	int error = test();
+	char line[BUFFSIZE];
 
 	// Create the threads
-	// pthread_t reader_t;
+	pthread_t reader_t;
 
 	// Create the queues
-	Queue *q = createStringQueue(CAPACITY);
-	enqueueString(q, "Hello, world!");
-	char msg[buffsize() + 1];
-
-	strcpy(msg, dequeueString(q));
+	Queue *readMunch1 = createStringQueue(CAPACITY);
 
 	// Start the threads
+	pthread_create(&reader_t, NULL, read, (void *)readMunch1);
 
 	// Wait for the threads to terminate
+	pthread_join(reader_t, NULL);
+
+	while (readMunch1->first != readMunch1->last) { // not empty
+		strcpy(line, dequeueString(readMunch1));
+		printf("%s\n", line);
+	}
 
 	return error;
 }

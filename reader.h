@@ -3,5 +3,5 @@
 
 #ifndef READER_H
 #define READER_H
-void read();
+void* read(void* v);
 #endif

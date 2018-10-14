@@ -1,14 +1,19 @@
 // Mark Wiemer mww 9074356420
 // Jenny Ye haengjung 9075878315
 
+#include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "main.h"
+#include "queue.h"
 
 #define BUFFSIZE buffsize()
 
-void read() {
+void* read(void* v) {
+	Queue* queue = (Queue*) v;
 	char buffer[BUFFSIZE];
+	char* copy = (char*) malloc(BUFFSIZE * sizeof(char));
 	int validLine = 0;
 	int lastLine = 0;
 	int c;
@@ -38,15 +43,11 @@ void read() {
 		//		printf("Last char: %c\n", c);
 			}
 			// if EOF, we are done
-			if (c == EOF) {return; }
+			if (c == EOF) {return NULL; }
 		} else {
-		//	printf("Final valid buffer ");
-			if (lastLine) {
-				printf("%s", buffer);
-				return;
-			} else {
-				printf("%s\n", buffer);
-			}
+			strcpy(copy, buffer);
+			enqueueString(queue, copy);
+			if (lastLine) return NULL;
 		}
 	}
 
