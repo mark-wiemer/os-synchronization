@@ -19,7 +19,9 @@ FILES = main.c \
 	queue.c \
 	queue.h \
 	reader.c \
-	reader.h
+	reader.h \
+	writer.c \
+	writer.h
 MARK_INFO = Mark Wiemer mww 9074356420
 JENNY_INFO = Jenny Ye haengjung 9075878315
 
@@ -29,10 +31,10 @@ NORMAL = \e[0m
 LIGHT_GREEN = \e[92m
 LIGHT_RED = \e[91m
 
-all: main.o munch.o queue.o reader.o
+all: main.o munch.o queue.o reader.o writer.o
 	$(CC) -o $(EXE) main.o munch.o queue.o reader.o -lpthread
 
-main.o: main.c main.h munch.h queue.h
+main.o: main.c main.h munch.h queue.h writer.h
 	$(CC) $(WARNING_FLAGS) -c main.c
 
 munch.o: munch.c main.h munch.h queue.h
@@ -43,6 +45,9 @@ queue.o: queue.c main.h queue.h
 
 reader.o: reader.c main.h
 	$(CC) $(WARNING_FLAGS) -c reader.c
+
+writer.o: writer.c main.h queue.h
+	$(CC) $(WARNING_FLAGS) -c writer.c
 
 clean:
 	rm -f $(EXE) *.o
