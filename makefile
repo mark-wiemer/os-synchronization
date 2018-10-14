@@ -7,6 +7,7 @@ EXE = prodcomm
 LINE = "+w ++ff=unix" # convert line endings
 IN_FILE = in.txt
 OUT_FILE = out.txt
+EXPECTED_FILE = expected.txt
 SPACES = "+%s/\s\+$$//" "+w" # remove right-trailing whitespace
 QUIT = "+q!"
 SCAN_BUILD_DIR = scan-build-out
@@ -59,7 +60,7 @@ spaces:
 
 test:
 	$(EXE) < $(IN_FILE) > $(OUT_FILE)
-	diff $(IN_FILE) $(OUT_FILE)
+	diff $(OUT_FILE) $(EXPECTED_FILE)
 	echo -e "$(LIGHT_GREEN)SUCCESS$(NORMAL)"
 
 # add info to each file

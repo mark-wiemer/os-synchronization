@@ -9,7 +9,7 @@
 #include "queue.h"
 #include "reader.h"
 
-#define BUFFSIZE 255
+#define BUFFSIZE 8	// TODO : change back to 256
 #define CAPACITY 10
 #define DEBUG 1
 
