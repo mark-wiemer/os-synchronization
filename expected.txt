@@ -1,3 +1,4 @@
+ERROR: line too long, it was discarded
 HI
 HELLO*WORLD
 MY*NAME*IS*JENNY

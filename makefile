@@ -70,7 +70,9 @@ spaces:
 
 test:
 	echo "" > $(OUT_FILE)
-	$(EXE) < $(IN_FILE) > $(OUT_FILE)
+	# redirect stdout and stderr to OUT_FILE
+	# http://wiki.bash-hackers.org/syntax/redirection
+	$(EXE) < $(IN_FILE) > $(OUT_FILE) 2>&1
 	echo "The following may result in differing counts for blocks:"
 	-diff $(OUT_FILE) $(EXPECTED_FILE)
 	echo -e "$(LIGHT_GREEN)SUCCESS$(NORMAL)"

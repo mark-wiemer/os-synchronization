@@ -40,6 +40,7 @@ void* read(void* v) {
 			buffer[i] = c;
 		}
 		if (!validLine){
+			fprintf(stderr, "ERROR: line too long, it was discarded\n");
 			//read rest of line or to end of file
 			while ((c = getchar()) != '\n' && c != EOF) {
 				// printf("Last char: %c\n", c);

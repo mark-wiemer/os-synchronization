@@ -11,6 +11,7 @@ Here's one.
 And another!
 Wow look at all of these lines.
 I'm definitely not bored.
+Look at this super long line holy cow it has so many characters we are past 70 characters now wow we are going to go to 257 characters because I don't want to change my buffer size just for this test and also it never hurts to have a good long line in your test file somewhere hey we did it almost at 300 characters now wow we just keep going!
 No sir.
 Oh hey also my name is Mark.
 See there are two of us writing this file.
