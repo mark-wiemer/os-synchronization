@@ -26,6 +26,7 @@ Queue * createStringQueue(int capacity) {
 
 	q->enqueueCount = 0;
 	q->dequeueCount = 0;
+	q->enqueueBlockCount = 0;
 
 	return q;
 }
@@ -34,6 +35,7 @@ void enqueueString(Queue *q, char *string) {
 	pthread_mutex_lock(&(q->mutex));
 
 	while (modIncrement(q, q->last) == q->first) { // while full
+		q->enqueueBlockCount++;
 		pthread_cond_wait(&(q->full), &(q->mutex));
 	}
 

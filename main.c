@@ -16,6 +16,7 @@
 #define CAPACITY 10
 #define DEBUG 1
 #define END_OF_THREAD ":)" // Some unique string to symbolize end of thread
+#define MSG_LENGTH 256 // bookkeeping output message
 
 /** global getter */
 int buffsize() { return BUFFSIZE; }
@@ -52,10 +53,16 @@ int test() {
 }
 
 void printQueueInfo(char* name, Queue* q) {
-	printf("%s:\n\tenqueueCount: %d\n\tdequeueCount: %d\n",
+	char msg[MSG_LENGTH];
+	strcpy(msg, "%s:\n");
+	strcat(msg, "\tenqueueCount: %d\n");
+	strcat(msg, "\tdequeueCount: %d\n");
+	strcat(msg, "\tenqueueBlockCount: %d\n");
+	printf(msg,
 		name,
 		q->enqueueCount,
-		q->dequeueCount);
+		q->dequeueCount,
+		q->enqueueBlockCount);
 }
 
 int main() {

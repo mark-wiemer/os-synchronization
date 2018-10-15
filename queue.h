@@ -13,6 +13,7 @@ typedef struct Queue {
 	int last;
 	int enqueueCount;
 	int dequeueCount;
+	int enqueueBlockCount;
 } Queue;
 Queue *createStringQueue(int capacity);
 void enqueueString(Queue *queue, char *string);
