@@ -19,11 +19,14 @@ Reader to Munch1:
 	enqueueCount: 18
 	dequeueCount: 18
 	enqueueBlockCount: 0
+	dequeueBlockCount: 0
 Munch1 to Munch2:
 	enqueueCount: 18
 	dequeueCount: 18
 	enqueueBlockCount: 0
+	dequeueBlockCount: 0
 Munch2 to Writer:
 	enqueueCount: 18
 	dequeueCount: 18
 	enqueueBlockCount: 0
+	dequeueBlockCount: 0

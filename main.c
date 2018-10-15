@@ -58,11 +58,13 @@ void printQueueInfo(char* name, Queue* q) {
 	strcat(msg, "\tenqueueCount: %d\n");
 	strcat(msg, "\tdequeueCount: %d\n");
 	strcat(msg, "\tenqueueBlockCount: %d\n");
+	strcat(msg, "\tdequeueBlockCount: %d\n");
 	printf(msg,
 		name,
 		q->enqueueCount,
 		q->dequeueCount,
-		q->enqueueBlockCount);
+		q->enqueueBlockCount,
+		q->dequeueBlockCount);
 }
 
 int main() {
