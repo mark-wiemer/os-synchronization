@@ -50,7 +50,7 @@ writer.o: writer.c main.h queue.h
 	$(CC) $(WARNING_FLAGS) -c writer.c
 
 clean:
-	rm -f $(EXE) *.o
+	rm -f $(EXE) $(OUT_FILE) *.o
 	rm -rf $(SCAN_BUILD_DIR)
 
 scan-build: clean
