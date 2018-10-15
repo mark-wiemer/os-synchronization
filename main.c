@@ -15,13 +15,10 @@
 #define BUFFSIZE 256
 #define CAPACITY 10
 #define DEBUG 1
-#define END_OF_THREAD ":)" // Some unique string to symbolize end of thread
 #define MSG_LENGTH 256 // bookkeeping output message
 
 /** global getter */
 int buffsize() { return BUFFSIZE; }
-
-char* eot() { return END_OF_THREAD; }
 
 /** Prints a fail message and returns count + 1 */
 int fail(char *msg, int actual, int expected, int count) {

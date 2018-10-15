@@ -14,8 +14,9 @@ void* write(void* v) {
 	char buffer[BUFFSIZE];
 
 	while (1) {
-		strcpy(buffer, dequeueString(q));
-		if (strcmp(buffer, eot())) { // not end of thread
+		char *dequeued = dequeueString(q);
+		if (dequeued != NULL) { // not end of thread
+			strcpy(buffer, dequeued);
 			printf("%s\n", buffer);
 		} else {
 			return NULL;

@@ -40,7 +40,12 @@ void enqueueString(Queue *q, char *string) {
 		pthread_cond_wait(&(q->full), &(q->mutex));
 	}
 
-	strcpy(q->elements[q->last], string);
+	if (string != NULL) {
+		strcpy(q->elements[q->last], string);
+	} else {
+		q->elements[q->last] = NULL;
+	}
+
 	q->last = modIncrement(q, q->last);
 	pthread_cond_signal(&(q->empty));
 
@@ -58,7 +63,12 @@ char * dequeueString(Queue *q) {
 		pthread_cond_wait(&(q->empty), &(q->mutex));
 	}
 
-	strcpy(string, q->elements[q->first]);
+	if (q->elements[q->first] != NULL) {
+		strcpy(string, q->elements[q->first]);
+	} else {
+		string = NULL;
+	}
+
 	q->first = modIncrement(q, q->first);
 	pthread_cond_signal(&(q->full));
 

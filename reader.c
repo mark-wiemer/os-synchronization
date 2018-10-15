@@ -29,8 +29,7 @@ void* read(void* v) {
 			}
 			if (c == EOF) {
 				if (i == 0) { // file ends on newline
-					strcpy(copy, eot());
-					enqueueString(queue, copy);
+					enqueueString(queue, NULL);
 					return NULL;
 				}
 				buffer[i] = '\0';
@@ -47,20 +46,17 @@ void* read(void* v) {
 			}
 			// if EOF, we are done
 			if (c == EOF) {
-				strcpy(copy, eot());
-				enqueueString(queue, copy);
+				enqueueString(queue, NULL);
 				return NULL;
 			}
 		} else {
 			strcpy(copy, buffer);
 			enqueueString(queue, copy);
 			if (lastLine) {
-				strcpy(copy, eot());
-				enqueueString(queue, copy);
+				enqueueString(queue, NULL);
 				return NULL;
 			}
 		}
 	}
-
 }
 

@@ -20,20 +20,21 @@ void* munch1(void * queues) {
 	int endFlag = 0; // whether we should end
 
 	while(!endFlag) {
-		strcpy(buffer, dequeueString(in));
+		char *dequeued = dequeueString(in);
 
-		if (strcmp(eot(), buffer)) { // if we don't have the eot
+		if (dequeued != NULL) { // if we don't have the eot
+			strcpy(buffer, dequeued);
 			for (int i = 0; i < BUFFSIZE; i++) {
 				c = buffer[i];
 				if (c == '\0') break;
 				if (c == ' ') buffer[i] = '*';
 			}
-		} else {
+			strcpy(copy, buffer);
+			enqueueString(out, copy);
+		} else { // we do have the eot
 			endFlag = 1;
+			enqueueString(out, NULL);
 		}
-
-		strcpy(copy, buffer);
-		enqueueString(out, copy);
 	}
 
 	return NULL;
@@ -49,20 +50,21 @@ void* munch2(void * queues) {
 	int endFlag = 0; // whether we should end
 
 	while(!endFlag) {
-		strcpy(buffer, dequeueString(in));
+		char *dequeued = dequeueString(in);
 
-		if (strcmp(eot(), buffer)) { // if we don't have the eot
+		if (dequeued != NULL) { // if we don't have the eot
+			strcpy(buffer, dequeued);
 			for (int i = 0; i < BUFFSIZE; i++) {
 				c = buffer[i];
 				if (c == '\0') break;
 				if (c >= 'a' && c <= 'z') buffer[i] = c - 32;
 			}
+			strcpy(copy, buffer);
+			enqueueString(out, copy);
 		} else {
 			endFlag = 1;
+			enqueueString(out, NULL);
 		}
-
-		strcpy(copy, buffer);
-		enqueueString(out, copy);
 	}
 
 	return NULL;
