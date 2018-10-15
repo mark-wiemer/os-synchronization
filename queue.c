@@ -2,6 +2,7 @@
 // Jenny Ye haengjung 9075878315
 
 #include <pthread.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -11,14 +12,36 @@
 /** capacity is the max number of elements */
 Queue * createStringQueue(int capacity) {
 	Queue* q;
+	int error = 0;
 
 	q = (Queue*) malloc(sizeof(Queue));
-	pthread_mutex_init(&(q->mutex), NULL); // initialize with default values
-	pthread_cond_init(&(q->empty), NULL); // TODO error handling?
-	pthread_cond_init(&(q->full), NULL); // TODO error handling?
+	if (q == NULL) {
+		printf("malloc failed\n");
+		return NULL;
+	}
+	if ((error = pthread_mutex_init(&(q->mutex), NULL))) { // initialize with default values
+		printf("pthread_mutex_init failed with error code %d. Exiting...\n", error);
+		return NULL;
+	}
+	if ((error = pthread_cond_init(&(q->empty), NULL))) {
+		printf("pthread_cond_init 1 failed with error code %d. Exiting...\n", error);
+		return NULL;
+	}
+	if ((error = pthread_cond_init(&(q->full), NULL))) {
+		printf("pthread_cond_init 2 failed with error code %d. Exiting...\n", error);
+		return NULL;
+	}
 	q->elements = (char**) malloc(capacity * sizeof(char*));
+	if (q->elements == NULL) {
+		printf("malloc 2 failed\n");
+		return NULL;
+	}
 	for (int i = 0; i < capacity; i++) {
 		q->elements[i] = (char*) malloc((buffsize() + 1) * sizeof(char));
+		if (q->elements[i] == NULL) {
+			printf("malloc index %d failed\n", i);
+			return NULL;
+		}
 	}
 	q->capacity = capacity;
 	q->first = 0;
