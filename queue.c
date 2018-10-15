@@ -25,6 +25,7 @@ Queue * createStringQueue(int capacity) {
 	q->last = 0;
 
 	q->enqueueCount = 0;
+	q->dequeueCount = 0;
 
 	return q;
 }
@@ -56,6 +57,8 @@ char * dequeueString(Queue *q) {
 	strcpy(string, q->elements[q->first]);
 	q->first = modIncrement(q, q->first);
 	pthread_cond_signal(&(q->full));
+
+	q->dequeueCount++;
 
 	pthread_mutex_unlock(&(q->mutex));
 	return string;

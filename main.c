@@ -52,7 +52,10 @@ int test() {
 }
 
 void printQueueInfo(char* name, Queue* q) {
-	printf("%s:\n\tenqueueCount: %d\n", name, q->enqueueCount);
+	printf("%s:\n\tenqueueCount: %d\n\tdequeueCount: %d\n",
+		name,
+		q->enqueueCount,
+		q->dequeueCount);
 }
 
 int main() {
