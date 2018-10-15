@@ -1,3 +1,9 @@
 HI
 HELLO*WORLD
 MY*NAME*IS*JENNY
+Reader to Munch1:
+	enqueueCount: 4
+Munch1 to Munch2:
+	enqueueCount: 4
+Munch2 to Writer:
+	enqueueCount: 4

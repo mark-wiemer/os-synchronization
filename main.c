@@ -51,6 +51,10 @@ int test() {
 	return error;
 }
 
+void printQueueInfo(char* name, Queue* q) {
+	printf("%s:\n\tenqueueCount: %d\n", name, q->enqueueCount);
+}
+
 int main() {
 	int error = test();
 
@@ -84,6 +88,11 @@ int main() {
 	pthread_join(munch1_t, NULL);
 	pthread_join(munch2_t, NULL);
 	pthread_join(writer_t, NULL);
+
+	// Print results
+	printQueueInfo("Reader to Munch1", read_munch1);
+	printQueueInfo("Munch1 to Munch2", munch1_munch2);
+	printQueueInfo("Munch2 to Writer", munch2_write);
 
 	return error;
 }
