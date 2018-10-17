@@ -2,6 +2,7 @@
 // Jenny Ye haengjung 9075878315
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
 #include "main.h"
@@ -9,13 +10,12 @@
 
 void* write(void* v) {
 	Queue* q = (Queue*) v;
-	char buffer[BUFFSIZE];
 
 	while (1) {
 		char *dequeued = dequeueString(q);
 		if (dequeued != NULL) { // not end of thread
-			strcpy(buffer, dequeued);
-			printf("%s\n", buffer);
+			printf("%s\n", dequeued);
+			free(dequeued);
 		} else {
 			return NULL;
 		}

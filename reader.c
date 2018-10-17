@@ -10,12 +10,15 @@
 
 void* read(void* v) {
 	Queue* queue = (Queue*) v;
-	char buffer[BUFFSIZE];
-	char* copy = (char*) malloc(BUFFSIZE * sizeof(char));
+	char* buffer;
 	int validLine = 0;
 	int lastLine = 0;
 	int c;
 	while (1) {
+		buffer = (char*) malloc(BUFFSIZE * sizeof(char));
+		if (buffer == NULL) {
+			fprintf(stderr, "ERROR: malloc failed\n");
+		}
 		validLine = 0;
 		lastLine = 0;
 		for (int i=0 ; i < BUFFSIZE ; i++) {
@@ -28,6 +31,7 @@ void* read(void* v) {
 			if (c == EOF) {
 				if (i == 0) { // file ends on newline
 					enqueueString(queue, NULL);
+					free(buffer); // never enqueued, must free now
 					return NULL;
 				}
 				buffer[i] = '\0';
@@ -39,6 +43,7 @@ void* read(void* v) {
 		}
 		if (!validLine){
 			fprintf(stderr, "ERROR: line too long, it was discarded\n");
+			free(buffer); // this buffer is never enqeued, we must free it now
 			//read rest of line or to end of file
 			while ((c = getchar()) != '\n' && c != EOF) {
 				// printf("Last char: %c\n", c);
@@ -49,8 +54,7 @@ void* read(void* v) {
 				return NULL;
 			}
 		} else {
-			strcpy(copy, buffer);
-			enqueueString(queue, copy);
+			enqueueString(queue, buffer);
 			if (lastLine) {
 				enqueueString(queue, NULL);
 				return NULL;

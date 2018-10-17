@@ -12,58 +12,46 @@ void* munch1(void * queues) {
 	MunchArgs* args = (MunchArgs*) queues;
 	Queue* in = args->in;
 	Queue* out = args->out;
-	char buffer[BUFFSIZE];
-	char* copy = (char*) malloc(BUFFSIZE * sizeof(char));
+	char* dequeued;
 	char c;
-	int endFlag = 0; // whether we should end
 
-	while(!endFlag) {
-		char *dequeued = dequeueString(in);
+	while(1) {
+		dequeued = dequeueString(in);
 
 		if (dequeued != NULL) { // if we don't have the eot
-			strcpy(buffer, dequeued);
 			for (int i = 0; i < BUFFSIZE; i++) {
-				c = buffer[i];
+				c = dequeued[i];
 				if (c == '\0') break;
-				if (c == ' ') buffer[i] = '*';
+				if (c == ' ') dequeued[i] = '*';
 			}
-			strcpy(copy, buffer);
-			enqueueString(out, copy);
+			enqueueString(out, dequeued);
 		} else { // we do have the eot
-			endFlag = 1;
 			enqueueString(out, NULL);
+			return NULL;
 		}
 	}
-
-	return NULL;
 }
 
 void* munch2(void * queues) {
 	MunchArgs* args = (MunchArgs*) queues;
 	Queue* in = args->in;
 	Queue* out = args->out;
-	char buffer[BUFFSIZE];
-	char* copy = (char*) malloc(BUFFSIZE * sizeof(char));
+	char* dequeued;
 	char c;
-	int endFlag = 0; // whether we should end
 
-	while(!endFlag) {
-		char *dequeued = dequeueString(in);
+	while(1) {
+		dequeued = dequeueString(in);
 
 		if (dequeued != NULL) { // if we don't have the eot
-			strcpy(buffer, dequeued);
 			for (int i = 0; i < BUFFSIZE; i++) {
-				c = buffer[i];
+				c = dequeued[i];
 				if (c == '\0') break;
-				if (c >= 'a' && c <= 'z') buffer[i] = c - 32;
+				if (c >= 'a' && c <= 'z') dequeued[i] = c - 32;
 			}
-			strcpy(copy, buffer);
-			enqueueString(out, copy);
+			enqueueString(out, dequeued);
 		} else {
-			endFlag = 1;
 			enqueueString(out, NULL);
+			return NULL;
 		}
 	}
-
-	return NULL;
 }
