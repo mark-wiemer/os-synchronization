@@ -78,16 +78,15 @@ void enqueueString(Queue *q, char *string) {
 }
 
 char * dequeueString(Queue *q) {
-<<<<<<< HEAD
+
 	char *string = (char*) malloc((buffsize() + 1) * sizeof(char));
 		if (string == NULL) {
 			printf("malloc string failed");
 			return NULL;
 		}
 
-=======
 	char *string = (char*) malloc(BUFFSIZE * sizeof(char));
->>>>>>> 20567b1e1ca1aa191efcee51d5a755ea2cc13196
+
 	pthread_mutex_lock(&(q->mutex));
 
 	while (q->first == q->last) { // while empty
