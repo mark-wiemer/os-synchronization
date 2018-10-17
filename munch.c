@@ -1,6 +1,7 @@
 // Mark Wiemer mww 9074356420
 // Jenny Ye haengjung 9075878315
 
+#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -27,7 +28,7 @@ void* munch1(void * queues) {
 			enqueueString(out, dequeued);
 		} else { // we do have the eot
 			enqueueString(out, NULL);
-			return NULL;
+			pthread_exit(NULL);
 		}
 	}
 }
@@ -51,7 +52,7 @@ void* munch2(void * queues) {
 			enqueueString(out, dequeued);
 		} else {
 			enqueueString(out, NULL);
-			return NULL;
+			pthread_exit(NULL);
 		}
 	}
 }

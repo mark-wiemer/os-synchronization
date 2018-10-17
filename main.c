@@ -123,15 +123,15 @@ int main() {
 		fprintf(stderr, "reader thread joining failed, quitting...\n");
 		return error;
 	}
-	if ((error = pthread_join(munch1_t, NULL))) {
+	if ((error = pthread_join(munch1_t, retVal)) || retVal) {
 		fprintf(stderr, "munch1 thread joining failed, quitting...\n");
 		return error;
 	}
-	if ((error = pthread_join(munch2_t, NULL))) {
+	if ((error = pthread_join(munch2_t, retVal)) || retVal) {
 		fprintf(stderr, "munch2 thread joining failed, quitting...\n");
 		return error;
 	}
-	if ((error = pthread_join(writer_t, NULL))) {
+	if ((error = pthread_join(writer_t, retVal)) || retVal) {
 		fprintf(stderr, "writer thread joining failed, quitting...\n");
 		return error;
 	}

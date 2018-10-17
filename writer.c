@@ -19,7 +19,7 @@ void* write(void* v) {
 			free(dequeued);
 		} else {
 			printf("Strings processed: %d\n", dequeueCount(q) - 1);
-			return NULL;
+			pthread_exit(NULL);
 		}
 	}
 }
