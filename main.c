@@ -12,13 +12,12 @@
 #include "reader.h"
 #include "writer.h"
 
-#define BUFFSIZE 1024
 #define CAPACITY 10
 #define DEBUG 1
 #define MSG_LENGTH 256 // bookkeeping output message
 
 /** global getter */
-int buffsize() { return BUFFSIZE; }
+const int BUFFSIZE = 1024;
 
 /** Prints a fail message and returns count + 1 */
 int fail(char *msg, int actual, int expected, int count) {

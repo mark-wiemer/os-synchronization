@@ -37,7 +37,7 @@ Queue * createStringQueue(int capacity) {
 		return NULL;
 	}
 	for (int i = 0; i < capacity; i++) {
-		q->elements[i] = (char*) malloc((buffsize() + 1) * sizeof(char));
+		q->elements[i] = (char*) malloc(BUFFSIZE * sizeof(char));
 		if (q->elements[i] == NULL) {
 			printf("malloc index %d failed\n", i);
 			return NULL;
@@ -78,7 +78,7 @@ void enqueueString(Queue *q, char *string) {
 }
 
 char * dequeueString(Queue *q) {
-	char *string = (char*) malloc((buffsize() + 1) * sizeof(char));
+	char *string = (char*) malloc(BUFFSIZE * sizeof(char));
 	pthread_mutex_lock(&(q->mutex));
 
 	while (q->first == q->last) { // while empty

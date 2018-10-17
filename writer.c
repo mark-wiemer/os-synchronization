@@ -7,8 +7,6 @@
 #include "main.h"
 #include "queue.h"
 
-#define BUFFSIZE buffsize()
-
 void* write(void* v) {
 	Queue* q = (Queue*) v;
 	char buffer[BUFFSIZE];

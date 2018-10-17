@@ -7,8 +7,6 @@
 #include "main.h"
 #include "munch.h"
 
-#define BUFFSIZE buffsize()
-
 /** Convert spaces to asterisks */
 void* munch1(void * queues) {
 	MunchArgs* args = (MunchArgs*) queues;
