@@ -16,18 +16,19 @@ NO*SIR.
 OH*HEY*ALSO*MY*NAME*IS*MARK.
 SEE*THERE*ARE*TWO*OF*US*WRITING*THIS*FILE.
 ISN'T*THAT*INTERESTING?
+
 Reader to Munch1:
-	enqueueCount: 18
-	dequeueCount: 18
+	enqueueCount: 19
+	dequeueCount: 19
 	enqueueBlockCount: 0
 	dequeueBlockCount: 0
 Munch1 to Munch2:
-	enqueueCount: 18
-	dequeueCount: 18
+	enqueueCount: 19
+	dequeueCount: 19
 	enqueueBlockCount: 0
 	dequeueBlockCount: 0
 Munch2 to Writer:
-	enqueueCount: 18
-	dequeueCount: 18
+	enqueueCount: 19
+	dequeueCount: 19
 	enqueueBlockCount: 0
 	dequeueBlockCount: 0

@@ -29,11 +29,6 @@ void* read(void* v) {
 				break;
 			}
 			if (c == EOF) {
-				if (i == 0) { // file ends on newline
-					enqueueString(queue, NULL);
-					free(buffer); // never enqueued, must free now
-					return NULL;
-				}
 				buffer[i] = '\0';
 				validLine = 1;
 				lastLine = 1;
