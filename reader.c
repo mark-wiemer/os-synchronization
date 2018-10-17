@@ -18,7 +18,7 @@ void* read(void* v) {
 		buffer = (char*) malloc(BUFFSIZE * sizeof(char));
 		if (buffer == NULL) {
 			fprintf(stderr, "ERROR: malloc failed\n");
-			return NULL;
+			pthread_exit((void*)1);
 		}
 		validLine = 0;
 		lastLine = 0;
@@ -47,13 +47,13 @@ void* read(void* v) {
 			// if EOF, we are done
 			if (c == EOF) {
 				enqueueString(queue, NULL);
-				return NULL;
+				pthread_exit(NULL);
 			}
 		} else {
 			enqueueString(queue, buffer);
 			if (lastLine) {
 				enqueueString(queue, NULL);
-				return NULL;
+				pthread_exit(NULL);
 			}
 		}
 	}

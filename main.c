@@ -117,7 +117,9 @@ int main() {
 	}
 
 	// Wait for the threads to terminate
-	if ((error = pthread_join(reader_t, NULL))) {
+	void* value = 0; // DO NOT dereference value, we just needed an address
+	void** retVal = &value;
+	if ((error = pthread_join(reader_t, retVal)) || retVal) {
 		fprintf(stderr, "reader thread joining failed, quitting...\n");
 		return error;
 	}
