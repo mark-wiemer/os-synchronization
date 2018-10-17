@@ -12,8 +12,6 @@
 #include "reader.h"
 #include "writer.h"
 
-#define DEBUG 1
-
 /** global getter */
 const int BUFFSIZE = 1024;
 
