@@ -17,6 +17,7 @@ OH*HEY*ALSO*MY*NAME*IS*MARK.
 SEE*THERE*ARE*TWO*OF*US*WRITING*THIS*FILE.
 ISN'T*THAT*INTERESTING?
 
+Strings processed: 18
 Reader to Munch1:
 	enqueueCount: 19
 	dequeueCount: 19

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+
 #include "main.h"
 #include "queue.h"
 
@@ -17,6 +18,7 @@ void* write(void* v) {
 			printf("%s\n", dequeued);
 			free(dequeued);
 		} else {
+			printf("Strings processed: %d\n", dequeueCount(q) - 1);
 			return NULL;
 		}
 	}

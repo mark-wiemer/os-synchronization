@@ -93,6 +93,10 @@ char * dequeueString(Queue *q) {
 	return string;
 }
 
+int dequeueCount(Queue* q) {
+	return q->dequeueCount;
+}
+
 int modIncrement(Queue *q, int index) {
 	return (index + 1) % (q->capacity);
 }
