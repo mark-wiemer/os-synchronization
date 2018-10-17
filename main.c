@@ -12,7 +12,7 @@
 #include "reader.h"
 #include "writer.h"
 
-#define BUFFSIZE 256
+#define BUFFSIZE 1024
 #define CAPACITY 10
 #define DEBUG 1
 #define MSG_LENGTH 256 // bookkeeping output message
