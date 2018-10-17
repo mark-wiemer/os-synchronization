@@ -30,6 +30,7 @@ int testModIncrement() {
 	int actual;
 	int expected;
 	Queue *q = createStringQueue(CAPACITY);
+	if (q == NULL) return 1;
 
 	if ((actual = modIncrement(q, 0)) != (expected = 1)) {
 		error = fail("modIncrement(q, 0)", actual, expected, error);
@@ -65,6 +66,10 @@ void printQueueInfo(char* name, Queue* q) {
 
 int main() {
 	int error = test();
+	if (error) {
+		fprintf(stderr, "ERROR: tests failed, quitting...\n");
+		return error;
+	}
 
 	// Create the threads
 	pthread_t reader_t;
@@ -74,34 +79,79 @@ int main() {
 
 	// Create the queues
 	Queue *read_munch1 = createStringQueue(CAPACITY);
+	if (read_munch1 == NULL) {
+		fprintf(stderr, "read_munch1 initialization failed, quitting...\n");
+		return 1;
+	}
 	Queue *munch1_munch2 = createStringQueue(CAPACITY);
+	if (munch1_munch2 == NULL) {
+		fprintf(stderr, "munch1_munch2 initialization failed, quitting...\n");
+		return 1;
+	}
 	Queue *munch2_write = createStringQueue(CAPACITY);
+	if (munch2_write == NULL) {
+		fprintf(stderr, "munch2_write initialization failed, quitting...\n");
+		return 1;
+	}
 
+	// Create the args
 	MunchArgs *munch1Args = (MunchArgs*) malloc(sizeof(MunchArgs));
+	if (munch1Args == NULL) {
+		fprintf(stderr, "munch1Args initialization falied, quitting...\n");
+		return 1;
+	}
 	munch1Args->in = read_munch1;
 	munch1Args->out = munch1_munch2;
 
 	MunchArgs *munch2Args = (MunchArgs*) malloc(sizeof(MunchArgs));
+	if (munch2Args == NULL) {
+		fprintf(stderr, "munch2Args initialization falied, quitting...\n");
+		return 1;
+	}
 	munch2Args->in = munch1_munch2;
 	munch2Args->out = munch2_write;
 
 	// Start the threads
-	pthread_create(&reader_t, NULL, read, (void*) read_munch1);
-	pthread_create(&munch1_t, NULL, munch1, (void*) munch1Args);
-	pthread_create(&munch2_t, NULL, munch2, (void*) munch2Args);
-	pthread_create(&writer_t, NULL, write, (void*) munch2_write);
+	if((error = pthread_create(&reader_t, NULL, read, (void*) read_munch1))) {
+		fprintf(stderr, "reader thread creation failed, quitting...\n");
+		return error;
+	}
+	if((error = pthread_create(&munch1_t, NULL, munch1, (void*) munch1Args))) {
+		fprintf(stderr, "munch1 thread creation failed, quitting...\n");
+		return error;
+	}
+	if ((error = pthread_create(&munch2_t, NULL, munch2, (void*) munch2Args))) {
+		fprintf(stderr, "munch2 thread creation failed, quitting...\n");
+		return error;
+	}
+	if ((error = pthread_create(&writer_t, NULL, write, (void*) munch2_write))) {
+		fprintf(stderr, "writer thread creation failed, quitting...\n");
+		return error;
+	}
 
 	// Wait for the threads to terminate
-	pthread_join(reader_t, NULL);
-	pthread_join(munch1_t, NULL);
-	pthread_join(munch2_t, NULL);
-	pthread_join(writer_t, NULL);
+	if ((error = pthread_join(reader_t, NULL))) {
+		fprintf(stderr, "reader thread joining failed, quitting...\n");
+		return error;
+	}
+	if ((error = pthread_join(munch1_t, NULL))) {
+		fprintf(stderr, "munch1 thread joining failed, quitting...\n");
+		return error;
+	}
+	if ((error = pthread_join(munch2_t, NULL))) {
+		fprintf(stderr, "munch2 thread joining failed, quitting...\n");
+		return error;
+	}
+	if ((error = pthread_join(writer_t, NULL))) {
+		fprintf(stderr, "writer thread joining failed, quitting...\n");
+		return error;
+	}
 
 	// Print results
 	printQueueInfo("Reader to Munch1", read_munch1);
 	printQueueInfo("Munch1 to Munch2", munch1_munch2);
 	printQueueInfo("Munch2 to Writer", munch2_write);
 
-	return error;
+	return 0;
 }
 
