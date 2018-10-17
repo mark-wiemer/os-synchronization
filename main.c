@@ -14,7 +14,6 @@
 
 #define CAPACITY 10
 #define DEBUG 1
-#define MSG_LENGTH 256 // bookkeeping output message
 
 /** global getter */
 const int BUFFSIZE = 1024;
@@ -47,21 +46,6 @@ int test() {
 	int error = 0;
 	error = testModIncrement();
 	return error;
-}
-
-void printQueueInfo(char* name, Queue* q) {
-	char msg[MSG_LENGTH];
-	strcpy(msg, "%s:\n");
-	strcat(msg, "\tenqueueCount: %d\n");
-	strcat(msg, "\tdequeueCount: %d\n");
-	strcat(msg, "\tenqueueBlockCount: %d\n");
-	strcat(msg, "\tdequeueBlockCount: %d\n");
-	printf(msg,
-		name,
-		q->enqueueCount,
-		q->dequeueCount,
-		q->enqueueBlockCount,
-		q->dequeueBlockCount);
 }
 
 int main() {
@@ -148,9 +132,9 @@ int main() {
 	}
 
 	// Print results
-	printQueueInfo("Reader to Munch1", read_munch1);
-	printQueueInfo("Munch1 to Munch2", munch1_munch2);
-	printQueueInfo("Munch2 to Writer", munch2_write);
+	printQueueInfo(read_munch1, "Reader to Munch1");
+	printQueueInfo(munch1_munch2, "Munch1 to Munch2");
+	printQueueInfo(munch2_write, "Munch2 to Writer");
 
 	return 0;
 }

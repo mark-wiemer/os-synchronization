@@ -9,6 +9,8 @@
 #include "main.h"
 #include "queue.h"
 
+static const int MSG_LENGTH = 256;
+
 /** capacity is the max number of elements */
 Queue * createStringQueue(int capacity) {
 	Queue* q;
@@ -93,5 +95,20 @@ char * dequeueString(Queue *q) {
 
 int modIncrement(Queue *q, int index) {
 	return (index + 1) % (q->capacity);
+}
+
+void printQueueInfo(Queue* q, char* name) {
+	char msg[MSG_LENGTH];
+	strcpy(msg, "%s:\n");
+	strcat(msg, "\tenqueueCount: %d\n");
+	strcat(msg, "\tdequeueCount: %d\n");
+	strcat(msg, "\tenqueueBlockCount: %d\n");
+	strcat(msg, "\tdequeueBlockCount: %d\n");
+	printf(msg,
+		name,
+		q->enqueueCount,
+		q->dequeueCount,
+		q->enqueueBlockCount,
+		q->dequeueBlockCount);
 }
 
