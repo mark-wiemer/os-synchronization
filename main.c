@@ -89,6 +89,7 @@ int main() {
 	MunchArgs *munch2Args = (MunchArgs*) malloc(sizeof(MunchArgs));
 	if (munch2Args == NULL) {
 		fprintf(stderr, "munch2Args initialization falied, quitting...\n");
+		free(munch1Args);
 		return 1;
 	}
 	munch2Args->in = munch1_munch2;
@@ -97,10 +98,13 @@ int main() {
 	// Start the threads
 	if((error = pthread_create(&reader_t, NULL, read, (void*) read_munch1))) {
 		fprintf(stderr, "reader thread creation failed, quitting...\n");
+		free(munch1Args);
+		free(munch2Args);
 		return error;
 	}
 	if((error = pthread_create(&munch1_t, NULL, munch1, (void*) munch1Args))) {
 		fprintf(stderr, "munch1 thread creation failed, quitting...\n");
+		free(munch2Args);
 		return error;
 	}
 	if ((error = pthread_create(&munch2_t, NULL, munch2, (void*) munch2Args))) {

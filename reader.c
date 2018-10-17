@@ -18,6 +18,7 @@ void* read(void* v) {
 		buffer = (char*) malloc(BUFFSIZE * sizeof(char));
 		if (buffer == NULL) {
 			fprintf(stderr, "ERROR: malloc failed\n");
+			return NULL;
 		}
 		validLine = 0;
 		lastLine = 0;
