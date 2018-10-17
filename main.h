@@ -3,5 +3,5 @@
 
 #ifndef MAIN_H
 #define MAIN_H
-int buffsize();
+const int BUFFSIZE;
 #endif
