@@ -12,11 +12,12 @@
 #include "reader.h"
 #include "writer.h"
 
-#define CAPACITY 10
 #define DEBUG 1
 
 /** global getter */
 const int BUFFSIZE = 1024;
+
+static const int CAPACITY = 10;
 
 /** Prints a fail message and returns count + 1 */
 int fail(char *msg, int actual, int expected, int count) {
