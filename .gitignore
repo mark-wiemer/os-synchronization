@@ -2,3 +2,4 @@ prodcomm
 *.o
 .__*
 out.txt
+scan-build-out/
