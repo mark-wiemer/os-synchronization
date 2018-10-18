@@ -22,8 +22,8 @@ FILES = main.c \
 	reader.h \
 	writer.c \
 	writer.h
-MARK_INFO = Mark Wiemer mww 9074356420
-JENNY_INFO = Jenny Ye haengjung 9075878315
+MARK_INFO = 1,Mark Wiemer,mwiemer2,mww,mwiemer2@wisc.edu,9074356420
+JENNY_INFO = 2,Haengjung Ye,hye35,haengjung,hye35@wisc.edu,9075878315
 
 # Text appearance (color)
 # https://misc.flogisoft.com/bash/tip_colors_and_formatting
