@@ -39,7 +39,7 @@ void* read(void* v) {
 		}
 		if (!validLine){
 			fprintf(stderr, "ERROR: line too long, it was discarded\n");
-			free(buffer); // this buffer is never enqeued, we must free it now
+			free(buffer); // this buffer is never enqueued, we must free it now
 			//read rest of line or to end of file
 			while ((c = getchar()) != '\n' && c != EOF) {
 				// printf("Last char: %c\n", c);
