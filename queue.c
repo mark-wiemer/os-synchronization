@@ -51,31 +51,52 @@ Queue * createStringQueue(int capacity) {
 	return q;
 }
 
-void enqueueString(Queue *q, char *string) {
-	pthread_mutex_lock(&(q->mutex));
+int enqueueString(Queue *q, char *string) {
+	int error = 0;
+	if ((error = pthread_mutex_lock(&(q->mutex)))) {
+		fprintf(stderr, "Error locking in enqueueString, returning error code...\n");
+		return error;
+	}
 
 	while (modIncrement(q, q->last) == q->first) { // while full
 		q->enqueueBlockCount++;
-		pthread_cond_wait(&(q->full), &(q->mutex));
+		if ((error = pthread_cond_wait(&(q->full), &(q->mutex)))) {
+			fprintf(stderr, "Error waiting in enqueueString, returning error code...\n");
+			return error;
+		}
 	}
 
 	q->elements[q->last] = string;
 
 	q->last = modIncrement(q, q->last);
-	pthread_cond_signal(&(q->empty));
+	if ((error = pthread_cond_signal(&(q->empty)))) {
+		fprintf(stderr, "Error signaling in enqueueString, returning error code...\n");
+		return error;
+	}
 
 	if (string != NULL) q->enqueueCount++;
 
-	pthread_mutex_unlock(&(q->mutex));
+	if ((error = pthread_mutex_unlock(&(q->mutex)))) {
+		fprintf(stderr, "Error unlocking in enqueueString, returning error code...\n");
+		return error;
+	}
+	return 0;
 }
 
 char * dequeueString(Queue *q) {
 	char *string;
-	pthread_mutex_lock(&(q->mutex));
+	int error = 0;
+	if ((error = pthread_mutex_lock(&(q->mutex)))) {
+		fprintf(stderr, "Error %d locking in dequeueString, returning...\n", error);
+		return NULL;
+	}
 
 	while (q->first == q->last) { // while empty
 		q->dequeueBlockCount++;
-		pthread_cond_wait(&(q->empty), &(q->mutex));
+		if ((error = pthread_cond_wait(&(q->empty), &(q->mutex)))) {
+			fprintf(stderr, "Error %d waiting in dequeueString, returning...\n", error);
+			return NULL;
+		}
 	}
 
 	if (q->elements[q->first] != NULL) {
@@ -85,11 +106,17 @@ char * dequeueString(Queue *q) {
 	}
 
 	q->first = modIncrement(q, q->first);
-	pthread_cond_signal(&(q->full));
+	if ((error = pthread_cond_signal(&(q->full)))) {
+		fprintf(stderr, "Error %d signaling in dequeueString, returning...\n", error);
+		return NULL;
+	}
 
 	if (string != NULL) q->dequeueCount++;
 
-	pthread_mutex_unlock(&(q->mutex));
+	if ((error = pthread_mutex_unlock(&(q->mutex)))) {
+		fprintf(stderr, "Error %d unlocking in dequeueString, returning...\n", error);
+		return NULL;
+	}
 	return string;
 }
 
