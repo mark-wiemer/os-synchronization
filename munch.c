@@ -2,8 +2,6 @@
 // Jenny Ye haengjung 9075878315
 
 #include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "main.h"
 #include "munch.h"
