@@ -19,17 +19,17 @@ ISN'T*THAT*INTERESTING?
 
 Strings processed: 18
 Reader to Munch1:
-	enqueueCount: 19
-	dequeueCount: 19
+	enqueueCount: 18
+	dequeueCount: 18
 	enqueueBlockCount: 0
 	dequeueBlockCount: 0
 Munch1 to Munch2:
-	enqueueCount: 19
-	dequeueCount: 19
+	enqueueCount: 18
+	dequeueCount: 18
 	enqueueBlockCount: 0
 	dequeueBlockCount: 0
 Munch2 to Writer:
-	enqueueCount: 19
-	dequeueCount: 19
+	enqueueCount: 18
+	dequeueCount: 18
 	enqueueBlockCount: 0
 	dequeueBlockCount: 0

@@ -18,7 +18,7 @@ void* write(void* v) {
 			printf("%s\n", dequeued);
 			free(dequeued);
 		} else {
-			printf("Strings processed: %d\n", dequeueCount(q) - 1);
+			printf("Strings processed: %d\n", dequeueCount(q));
 			pthread_exit(NULL);
 		}
 	}

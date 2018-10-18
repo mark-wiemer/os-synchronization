@@ -64,7 +64,7 @@ void enqueueString(Queue *q, char *string) {
 	q->last = modIncrement(q, q->last);
 	pthread_cond_signal(&(q->empty));
 
-	q->enqueueCount++;
+	if (string != NULL) q->enqueueCount++;
 
 	pthread_mutex_unlock(&(q->mutex));
 }
@@ -87,7 +87,7 @@ char * dequeueString(Queue *q) {
 	q->first = modIncrement(q, q->first);
 	pthread_cond_signal(&(q->full));
 
-	q->dequeueCount++;
+	if (string != NULL) q->dequeueCount++;
 
 	pthread_mutex_unlock(&(q->mutex));
 	return string;
