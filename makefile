@@ -23,7 +23,7 @@ FILES = main.c \
 	writer.c \
 	writer.h
 MARK_INFO = 1,Mark Wiemer,mwiemer2,mww,mwiemer2@wisc.edu,9074356420
-JENNY_INFO = 2,Haengjung Ye,hye35,haengjung,hye35@wisc.edu,9075878315
+JENNY_INFO = 2,Jenny Ye,hye35,haengjung,hye35@wisc.edu,9075878315
 
 # Text appearance (color)
 # https://misc.flogisoft.com/bash/tip_colors_and_formatting
